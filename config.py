@@ -1,19 +1,26 @@
-import os
+#!/usr/bin/env python3
+"""
+Configuration file for WCAG Accessibility Scanner
+"""
 
-# Configuration
-CONFIG = {
-    "repo_path": "/Users/mohammedfarhank/Desktop/fyle-workspace/fyle-mobile-app",
-    "exclude_dirs": [
-        "node_modules", "dist", "build", "www", ".git", 
-        "coverage", ".angular", "ios", "android", "platforms"
-    ],
-    "exclude_files": ["*.d.ts", "*.spec.ts", "*.test.ts", "*.mock.ts", "*.data.ts", "*.service.ts", "*.model.ts"],
-    "file_limits": {
-        "html": 1000,  # Max HTML files to process
-        "typescript": 500,  # Max TS files to process
-        "components": 300   # Max component files to process
-    },
-    "timeout_per_file": 30,  # seconds
-    "max_workers": 4,  # Parallel processing
-    "output_dir": "./reports"
-}
+# Repository path to scan
+REPO_PATH = "/Users/mohammedfarhank/Desktop/fyle-workspace/fyle-mobile-app"
+
+# Output directory for reports
+OUTPUT_DIR = "./reports"
+
+# Directories to exclude from scanning
+EXCLUDE_DIRS = [
+    "node_modules", "dist", "build", "www", ".git", 
+    "coverage", ".angular", "ios", "android", "platforms",
+    "Pods", "DerivedData", ".idea", ".vscode"
+]
+
+# File patterns to exclude from scanning
+EXCLUDE_FILE_PATTERNS = ["*.d.ts", "*.spec.ts", "*.test.ts", "*.mock.ts", "*.data.ts"]
+
+# File limits for different file types
+FILE_LIMITS = {"html": 1000}
+
+# Timeout per file in seconds (increased timeout for Puppeteer)
+TIMEOUT_PER_FILE = 120
