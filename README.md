@@ -5,7 +5,7 @@ A comprehensive accessibility testing tool that scans HTML files for WCAG 2.1 co
 ## ✨ Features
 
 - **Comprehensive Testing**: Tests 100+ WCAG 2.1 accessibility rules
-- **HTML File Scanning**: Automatically finds and scans `.page.html` files
+- **HTML File Scanning**: Automatically finds and scans `.html` files
 - **Real Browser Testing**: Uses Puppeteer for accurate rendering and testing
 - **Detailed Reports**: Generates interactive HTML and JSON reports
 - **Mobile App Focused**: Optimized for mobile app HTML content
@@ -27,15 +27,48 @@ A comprehensive accessibility testing tool that scans HTML files for WCAG 2.1 co
    cd accessibility_scanner
    ```
 
-2. **Install Python dependencies:**
+2. **Create and activate Python virtual environment (recommended):**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install Python dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Install Node.js dependencies:**
+4. **Install Node.js dependencies:**
    ```bash
    npm install
    ```
+
+5. **Install axe-core globally (if not already installed):**
+   ```bash
+   npm install -g axe-core
+   ```
+
+6. **Verify installation:**
+   ```bash
+   python --version
+   node --version
+   npm --version
+   axe --version  # Check if axe-core is available
+   ```
+
+### Manual Puppeteer Installation (if npm install fails)
+
+If the automatic Puppeteer installation fails, try:
+
+```bash
+npm install puppeteer --unsafe-perm=true
+```
+
+Or install globally:
+
+```bash
+npm install -g puppeteer
+```
 
 ### Configuration
 
@@ -61,7 +94,7 @@ python scanner.py
 ```
 
 The scanner will:
-1. Find all `.page.html` files in your repository
+1. Find all `.html` files in your repository
 2. Test each file for WCAG compliance using axe-core
 3. Generate detailed reports
 4. Optionally start a web server to view results
@@ -193,6 +226,9 @@ The scanner provides detailed logging:
 - `puppeteer`: Browser automation
 - `axe-core`: Accessibility testing engine
 
+### OUTPUT EXAMPLE
+<img width="1440" height="900" alt="Screenshot 2025-08-21 at 9 29 29 PM" src="https://github.com/user-attachments/assets/8a3efa0a-6234-4d09-8d47-28be93a32307" />
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -222,3 +258,4 @@ For issues and questions:
 ---
 
 **Happy accessibility testing! 🎉** 
+
