@@ -4,7 +4,7 @@ Configuration file for WCAG Accessibility Scanner
 """
 
 # Repository path to scan
-REPO_PATH = "/Users/mohammedfarhank/Desktop/fyle-workspace/fyle-mobile-app"
+REPO_PATH = "/dummy"
 
 # Output directory for reports
 OUTPUT_DIR = "./reports"
