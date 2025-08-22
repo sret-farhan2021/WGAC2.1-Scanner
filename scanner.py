@@ -85,9 +85,10 @@ class AccessibilityScanner:
             
             # Create a Node.js script to run axe with Puppeteer
             script_content = f"""
-            const fs = require('fs');
-            const puppeteer = require('puppeteer');
-            
+            import fs from 'fs';
+            import puppeteer from 'puppeteer';
+            import path from 'path';
+
             async function runAxe() {{
                 const browser = await puppeteer.launch({{ 
                     headless: 'new',
@@ -102,9 +103,14 @@ class AccessibilityScanner:
                         waitUntil: 'networkidle0',
                         timeout: 60000
                     }});
-                    const axeCorePath = require.resolve('axe-core');
-                    const axeScript = fs.readFileSync(axeCorePath, 'utf8');
-                    await page.evaluate(axeScript);
+                    // Use a simple axe-core CDN version to avoid path issues
+                    await page.addScriptTag({{
+                        url: 'https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js'
+                    }});
+                    
+                    // Wait for axe to load
+                    await page.waitForFunction(() => typeof axe !== 'undefined', {{ timeout: 10000 }});
+
                     const results = await page.evaluate(async () => {{
                         return await axe.run();
                     }});
@@ -124,9 +130,9 @@ class AccessibilityScanner:
             }});
             """
             
-            # Write temporary script
-            temp_dir = os.path.abspath(str(self.repo_path))
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.js', delete=False, dir=temp_dir) as script_file:
+            # Write temporary script in scanner directory to avoid ES module conflicts
+            temp_dir = os.path.abspath(str(Path(__file__).parent))
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.mjs', delete=False, dir=temp_dir) as script_file:
                 script_file.write(script_content)
                 script_path = script_file.name
             
